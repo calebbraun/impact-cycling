@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
+     {% include 'includes.html' %}
     <title>Profile</title>
 <!--    <link rel="stylesheet" type = "text/css" href="/static/profile.css"/>    -->
       <link rel="stylesheet" href="{{ url_for('static', filename='comingsoon.css') }}">
@@ -8,10 +9,10 @@
     <script type="text/javascript" src="{{ url_for('static', filename='comingsoon.js') }}"></script>
 
     <body onload = "init()">
-        
+
         {% include 'navbar.html' %}
-        
+
         <div id="comingsoon"></div>
-        
+
   </body>
 </html>

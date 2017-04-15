@@ -1,13 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-
-
-
+    {% include 'includes.html' %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.css') }}">
     <title>Title</title>
 </head>
 <body>
-
+{% include 'navbar.html' %}
 </body>
 </html>

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
+     {% include 'includes.html' %}
     <title>Profile</title>
 <!--    <link rel="stylesheet" type = "text/css" href="/static/profile.css"/>    -->
       <input type="hidden" id="myVar" name="variable" value = '{{ userData|tojson }}'>
@@ -9,9 +10,9 @@
     <script type="text/javascript" src="{{ url_for('static', filename='profile.js') }}"></script>
 
     <body onload = "init()">
-        
+
         {% include 'navbar.html' %}
-        
+
         <div id="welcome"></div>
         <div id ="subwelcome"></div>
         <div id="totalmiles">

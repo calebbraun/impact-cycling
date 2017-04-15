@@ -1,43 +1,41 @@
 <!DOCTYPE html>
 <html>
-    
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCgL4EhbainFOaUs3OJDUasN_9X3Kv7CN0&libraries=places&callback=initAutocomplete" async defer></script>
-<link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.css') }}">
-    
 <head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+	{% include 'includes.html' %}
 	<title>Enter your Trip</title>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCgL4EhbainFOaUs3OJDUasN_9X3Kv7CN0&libraries=places&callback=initAutocomplete" async defer></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.css') }}">
 </head>
-<body> 
+<body>
 <script type="text/javascript" src="{{ url_for('static', filename='log-trip.js') }}"></script>
 
 {% include 'navbar.html' %}
- 
+
 {% block content %}
 <div class="container">
 <div class="row">
 <div class="col-lg-5 well">
-<h3>Enter your trip information</h3>
 <form id="userInputs" class="form-horizontal" method="post" action="{{ url_for('trip_data') }}">
-    
+<legend>Enter your trip information</legend>
+
 <fieldset>
 <div id="box">
     <div id="startend" class="form-group">
-	<label for="start" class="col-lg-2 control-label">Where did you begin your ride?</label>
+	<label for="start" class="control-label">Where did you begin your ride?</label>
     	<div id="start" class="col-lg-10">
       	    <input id="start_input" class="form-control" type="text" placeholder="Start Location" name = 'startpoint' required>
         </div>
     </div>
     <div class="form-group">
-	<label for="end" class="col-lg-2 control-label">Where was the destination of your ride?</label>
+	<label for="end" class="control-label">Where was the destination of your ride?</label>
     	<div id="end" class="col-lg-10">
             <input id="end_input" class="form-control" type="text" placeholder="End Location" name='endpoint' required>
         </div>
     </div>
-    <div class="form-group" id="button">
+    <div class="form-group">
+	<div class="col-lg-10 col-lg-offset-2" id="button">
         <button id="go" class="btn btn-primary">Get My Route</button>
+	</div>
     </div>
 </div>
 </fieldset>
@@ -55,6 +53,9 @@
     </tr>
   </thead>
   <tbody>
+    {% if trips|length == 0 %}
+	<tr><td></td><td>You have not entered any trips yet.</td></tr>
+    {% endif %}
     {% for row in trips %}
     <tr>
       <td>{{ loop.index }}</td>
@@ -63,11 +64,11 @@
     </tr>
     {% endfor %}
   </tbody>
-</table> 
+</table>
 </div>
 </div>
 </div>
 {% endblock %}
-    
+
 </body>
 </html>
