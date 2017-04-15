@@ -3,8 +3,6 @@ from urllib.request import urlopen
 from flask import Flask, flash, jsonify, render_template, request, session
 from flask_googlemaps import GoogleMaps, Map
 from geopy.distance import vincenty
-from urllib2 import urlopen
-#from urllib.request import urlopen
 from models import *
 import trip_log
 
