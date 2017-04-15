@@ -14,6 +14,10 @@
       <ul class="nav navbar-nav">
         <li><a href="/about">About</a></li>
         <li><a href="#">Meet the Team</a></li>
+        <li><a id = "myprofile" onclick="onMyProfile()" href="#">My Profile</a></li>
+        <li><a id = "newtrip" onclick="onNewTrip()" href="#">Log Another Trip</a></li>
+        <li><a id = "playgame" onclick="onPlayGame()" href="#">Game: Bike Across Europe</a></li>
+        <li><a id = "settings" onclick="onSettings()" href="#">Settings</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li class="dropdown">
@@ -26,5 +30,19 @@
         </li>
       </ul>
     </div>
+      
+      <script>
+      function onNewTrip(){
+        window.location.href="http://localhost:5000/logtrip/";}      
+          
+        function onMyProfile(){
+            window.location.href="http://localhost:5000/profile/";}
+          
+        function onPlayGame(){
+            window.location.href="http://localhost:5000/game/";}
+          
+        function onSettings(){
+            window.location.href="http://localhost:5000/settings/";}
+      </script>
   </div>
 </nav>

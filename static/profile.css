@@ -4593,11 +4593,12 @@ fieldset[disabled] .navbar-default .btn-link:focus {
   color: #444444;
 }
 .navbar-inverse {
-  background-color: #d9230f;
-  border-color: #a91b0c;
+  background-color: #468847;
+  border-color: #468847;
 }
 .navbar-inverse .navbar-brand {
-  color: #fac0ba;
+  color: #654321;
+  font-weight: bold;
 }
 .navbar-inverse .navbar-brand:hover,
 .navbar-inverse .navbar-brand:focus {
@@ -4605,10 +4606,12 @@ fieldset[disabled] .navbar-default .btn-link:focus {
   background-color: transparent;
 }
 .navbar-inverse .navbar-text {
-  color: #fac0ba;
+  color: #654321;
+  font-weight: bold;
 }
 .navbar-inverse .navbar-nav > li > a {
-  color: #fac0ba;
+  color: #654321;
+  font-weight: bold;
 }
 .navbar-inverse .navbar-nav > li > a:hover,
 .navbar-inverse .navbar-nav > li > a:focus {
@@ -6910,7 +6913,7 @@ label {
 }
 
 div#welcome {
-    margin-top: 100px;
+    margin-top: 25px;
     margin-left: 25px;
     font-size: xx-large;
 }
@@ -6970,9 +6973,5 @@ div#co2caption {
     font-size: medium;
 }
 
-div#logtripbutton {
-    margin-top: -200px;
-    margin-left: 400px;
-}
 
 
