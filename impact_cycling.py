@@ -14,6 +14,7 @@ app = Flask(__name__, static_folder='static', template_folder='templates')
 app.secret_key = 'DYF~KPCVVjkdfFEQ93jJ]'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
 db.init_app(app)
+
 # create tables
 with app.app_context():
     db.create_all()
@@ -35,19 +36,20 @@ def registration():
 
 @app.route('/register', methods=['POST'])
 def register():
-    POST_USERNAME = str(request.form['username'])
-    POST_PASSWORD = str(request.form['password'])
-    if POST_PASSWORD != str(request.form['cpassword']):
-        return
-    POST_FIRSTNAME = str(request.form['firstname'])
+    new_username = str(request.form['username'])
+    new_password = str(request.form['password'])
+    new_firstname = str(request.form['firstname'])
 
-    print (POST_USERNAME, POST_PASSWORD, POST_FIRSTNAME)
+    if new_password != str(request.form['cpassword']):
+        print("Error!")
+        session['logged_in'] = False
+    else:
+        session['logged_in'] = True
+        new_user = User(new_username, new_password, new_firstname)
+        db.session.add(new_user)
+        db.session.commit()
 
-    Session = sessionmaker(bind=engine)
-    s = Session()
-    record = User(POST_USERNAME, POST_PASSWORD, POST_FIRSTNAME)
-    s.add(record)
-    s.commit()
+    return registration()
 
 @app.route('/login')
 def home():
