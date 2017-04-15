@@ -93,7 +93,7 @@ def profile():
     distance = 0
     
     for i in range(1,qry+1):
-        qry2 = Trips.query.filter_by(id=i).first().distance
+        qry2 = Trips.query.filter_by(user_id=userid,id=i).first().distance
         distance += qry2
         
     gallons_used = distance / 25.5
