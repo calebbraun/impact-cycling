@@ -1,14 +1,10 @@
-import flask
 import simplejson
 from urllib.request import urlopen
-from flask import Flask, jsonify, render_template, request, session
 from flask import Flask, flash, jsonify, render_template, request, session
 from flask_googlemaps import GoogleMaps, Map
-import os
 from geopy.distance import vincenty
-from sqlalchemy.orm import sessionmaker
-from sqlalchemy import create_engine
-from flask_sqlalchemy import SQLAlchemy
+from urllib2 import urlopen
+#from urllib.request import urlopen
 from models import *
 import trip_log
 
@@ -89,9 +85,6 @@ def profile():
 @app.route('/logtrip/')
 def log_trip():
     past_trips = trip_log.get_past_trips()
-
-    user = User.query.filter_by(username=session['username']).first()
-    past_trips = user.id
     return flask.render_template('log-trip.html', trips=past_trips)
 
 @app.route('/tripdata/', methods=['POST'])
