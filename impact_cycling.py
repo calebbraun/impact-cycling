@@ -3,11 +3,7 @@ import simplejson
 from urllib.request import urlopen
 from flask import Flask, flash, jsonify, render_template, request, session
 from flask_googlemaps import GoogleMaps, Map
-import os
 from geopy.distance import vincenty
-from sqlalchemy.orm import sessionmaker
-from sqlalchemy import create_engine
-from flask_sqlalchemy import SQLAlchemy
 from models import *
 import trip_log
 
@@ -15,6 +11,9 @@ app = Flask(__name__, static_folder='static', template_folder='templates')
 app.secret_key = 'DYF~KPCVVjkdfFEQ93jJ]'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
 db.init_app(app)
+# create tables
+with app.app_context():
+    db.create_all()
 
 @app.route('/')
 def get_main_page():
@@ -23,6 +22,29 @@ def get_main_page():
 @app.route('/about')
 def about():
     return render_template('about.html')
+
+@app.route('/register')
+def registration():
+    if not session.get('logged_in'):
+        return render_template('register.html')
+    else:
+        return profile()
+
+@app.route('/register', methods=['POST'])
+def register():
+    POST_USERNAME = str(request.form['username'])
+    POST_PASSWORD = str(request.form['password'])
+    if POST_PASSWORD != str(request.form['cpassword']):
+        return
+    POST_FIRSTNAME = str(request.form['firstname'])
+
+    print (POST_USERNAME, POST_PASSWORD, POST_FIRSTNAME)
+
+    Session = sessionmaker(bind=engine)
+    s = Session()
+    record = User(POST_USERNAME, POST_PASSWORD, POST_FIRSTNAME)
+    s.add(record)
+    s.commit()
 
 @app.route('/login')
 def home():
@@ -69,9 +91,6 @@ def profile():
 @app.route('/logtrip/')
 def log_trip():
     past_trips = trip_log.get_past_trips()
-
-    user = User.query.filter_by(username=session['username']).first()
-    past_trips = user.id
     return flask.render_template('log-trip.html', trips=past_trips)
 
 @app.route('/tripdata/', methods=['POST'])
@@ -118,6 +137,5 @@ def settings():
     return "Coming soon!"
 
 if __name__ == "__main__":
-    app.secret_key = os.urandom(12)
     app.run(host='0.0.0.0', debug=True, use_reloader=True)
     #app.run(host='localhost', port=5000, debug=True, use_reloader=True)
