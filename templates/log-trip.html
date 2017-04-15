@@ -16,8 +16,9 @@
 {% include 'navbar.html' %}
  
 {% block content %}
+<div class="container">
 <div class="row">
-<div class="col-lg-5">
+<div class="col-lg-5 well">
 <h3>Enter your trip information</h3>
 <form id="userInputs" class="form-horizontal" method="post" action="{{ url_for('trip_data') }}">
     
@@ -50,21 +51,20 @@
     <tr>
       <th>#</th>
       <th>Trip Date</th>
-      <th>Latitude</th>
-      <th>Longitude</th>
+      <th>Distance</th>
     </tr>
   </thead>
   <tbody>
     {% for row in trips %}
     <tr>
       <td>{{ loop.index }}</td>
-      <td>{{ row.date }}</td>
-      <td>{{ row.lat}}</td>
-      <td>{{ row.lon }}</td>
+      <td>{{ row.date.strftime('%m/%d/%Y') }} {{ row.date.strftime(' %I:%M%p') }}</td>
+      <td>{{ '%.2f' % row.distance }} miles</td>
     </tr>
     {% endfor %}
   </tbody>
 </table> 
+</div>
 </div>
 </div>
 {% endblock %}
