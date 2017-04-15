@@ -7,9 +7,9 @@ from flask_googlemaps import GoogleMaps, Map
 import os
 from geopy.distance import vincenty
 from sqlalchemy.orm import sessionmaker
+from sqlalchemy import create_engine
 from tabledef import *
 import trip_log
-from tabledef_old import *
 
 app = Flask(__name__, static_folder='static', template_folder='templates')
 app.secret_key = 'DYF~KPCVVjkdfFEQ93jJ]'
@@ -65,6 +65,11 @@ def profile():
 @app.route('/logtrip/')
 def log_trip():
     past_trips = trip_log.get_past_trips()    
+
+    Session = sessionmaker(bind=engine)
+    s = Session()
+    query = s.query(User)
+
     user = User.query.filter_by(username=session['username']).first()
     past_trips = user.id
     return flask.render_template('log-trip.html', trips=past_trips)
