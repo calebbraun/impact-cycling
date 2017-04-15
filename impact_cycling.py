@@ -63,9 +63,6 @@ def profile():
 @app.route('/logtrip/')
 def log_trip():
     past_trips = trip_log.get_past_trips()
-
-    user = User.query.filter_by(username=session['username']).first()
-    past_trips = user.id
     return flask.render_template('log-trip.html', trips=past_trips)
 
 @app.route('/tripdata/', methods=['POST'])
