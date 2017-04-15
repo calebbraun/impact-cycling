@@ -4,7 +4,7 @@ from urllib2 import urlopen
 from flask import Flask, jsonify, render_template, request, session
 from flask_googlemaps import GoogleMaps, Map
 import os
-from impact_cycling.database import db_session
+from models import *
 from geopy.distance import vincenty
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import create_engine
@@ -13,7 +13,9 @@ import trip_log
 
 app = Flask(__name__, static_folder='static', template_folder='templates')
 app.secret_key = 'DYF~KPCVVjkdfFEQ93jJ]'
-engine = create_engine('sqlite:///tutorial.db', echo=True)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
+db = SQLAlchemy(app)
+# engine = create_engine('sqlite:///tutorial.db', echo=True)
 
 @app.route('/')
 def get_main_page():
