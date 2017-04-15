@@ -19,25 +19,27 @@
 <div class="container">
 <div class="row">
 <div class="col-lg-5 well">
-<h3>Enter your trip information</h3>
 <form id="userInputs" class="form-horizontal" method="post" action="{{ url_for('trip_data') }}">
+<legend>Enter your trip information</legend>
     
 <fieldset>
 <div id="box">
     <div id="startend" class="form-group">
-	<label for="start" class="col-lg-2 control-label">Where did you begin your ride?</label>
+	<label for="start" class="control-label">Where did you begin your ride?</label>
     	<div id="start" class="col-lg-10">
       	    <input id="start_input" class="form-control" type="text" placeholder="Start Location" name = 'startpoint' required>
         </div>
     </div>
     <div class="form-group">
-	<label for="end" class="col-lg-2 control-label">Where was the destination of your ride?</label>
+	<label for="end" class="control-label">Where was the destination of your ride?</label>
     	<div id="end" class="col-lg-10">
             <input id="end_input" class="form-control" type="text" placeholder="End Location" name='endpoint' required>
         </div>
     </div>
-    <div class="form-group" id="button">
+    <div class="form-group">
+	<div class="col-lg-10 col-lg-offset-2" id="button">
         <button id="go" class="btn btn-primary">Get My Route</button>
+	</div>
     </div>
 </div>
 </fieldset>
@@ -55,6 +57,9 @@
     </tr>
   </thead>
   <tbody>
+    {% if trips|length == 0 %}
+	<tr><td></td><td>You have not entered any trips yet.</td></tr>
+    {% endif %}
     {% for row in trips %}
     <tr>
       <td>{{ loop.index }}</td>
