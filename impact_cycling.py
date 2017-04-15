@@ -51,10 +51,8 @@ def home():
     if not session.get('logged_in'):
         return render_template('login.html')
     else:
-        POST_USERNAME = str(request.form['username'])
-        user_data = [POST_USERNAME]
-        return flask.render_template('profile.html', userData = user_data)
-#        return profile(POST_USERNAME)
+#        return flask.render_template('profile.html', userData = user_data)
+        return profile()
         #return "Hello Boss!  <a href='/logout'>Logout</a>"
 
 @app.route('/login', methods=['POST'])
@@ -130,11 +128,11 @@ def trip_data():
 
 @app.route('/game/')
 def game():
-    return "Coming soon!"
+    return flask.render_template('comingsoon.html')
 
 @app.route('/settings/')
 def settings():
-    return "Coming soon!"
+    return flask.render_template('comingsoon.html')
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', debug=True, use_reloader=True)
