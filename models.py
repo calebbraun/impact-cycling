@@ -1,0 +1,39 @@
+from sqlalchemy import Column, DateTime, String, Float, Integer, ForeignKey, func
+from sqlalchemy.orm import relationship, backref
+from impact_cycling import db
+
+class User(db.Model):
+    __tablename__ = 'users'
+    id = Column(Integer, primary_key=True)
+    username = Column(String)
+    password = Column(String)
+    first_name = Column(String)
+
+    def __init__(self, name=None, password=None, first_name=None):
+        self.username = name
+        self.password = password
+        self.first_name = first_name
+
+    def __repr__(self):
+        return '<User %r>' % (self.username)
+    # ---------------------------------------------------
+
+
+class Trips(db.Model):
+    __tablename__ = 'trips'
+    id = Column(Integer, primary_key=True)
+    lat = Column(Float)
+    lon = Column(Float)
+    date = Column(DateTime)
+    #user_id = Column(Integer, ForeignKey('users.id'))
+    
+    # ----------------------------------------------------------------------
+    def __init__(self, lat, lon, date): #, user_id):
+        """"""
+        self.lat = lat
+        self.lon = lon
+        self.date = date
+#        self.user_id = user_id
+
+# create tables
+Base.metadata.create_all(engine)

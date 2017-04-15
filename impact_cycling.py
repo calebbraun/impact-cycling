@@ -1,6 +1,5 @@
 import flask
 import simplejson
-#from urllib2 import urlopen
 from urllib.request import urlopen
 from flask import Flask, flash, jsonify, render_template, request, session
 from flask_googlemaps import GoogleMaps, Map
@@ -8,16 +7,43 @@ import os
 from geopy.distance import vincenty
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import create_engine
+from flask_sqlalchemy import SQLAlchemy
 from tabledef import *
 import trip_log
 
 app = Flask(__name__, static_folder='static', template_folder='templates')
 app.secret_key = 'DYF~KPCVVjkdfFEQ93jJ]'
-engine = create_engine('sqlite:///tutorial.db', echo=True)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
+db = SQLAlchemy(app)
+
+class User(db.Model):
+    __tablename__ = 'users'
+
+    id = Column(Integer, primary_key=True)
+    username = Column(String)
+    password = Column(String)
+    first_name = Column(String)
+
+    def __init__(self, name=None, password=None, first_name=None):
+        self.username = name
+        self.password = password
+        self.first_name = first_name
+
+    def __repr__(self):
+        return '<User %r>' % (self.username)
+# engine = create_engine('sqlite:///tutorial.db', echo=True)
+
+class Trips(db.Model):
+    __tablename__ = 'trips'
+    id = Column(Integer, primary_key=True)
+    lat = Column(Float)
+    lon = Column(Float)
+    date = Column(DateTime)
+    user_id = Column(Integer, ForeignKey('users.id'))
 
 @app.route('/')
 def get_main_page():
-    return flask.render_template('test-index.html')
+    return flask.render_template('index.html')
 
 @app.route('/about')
 def about():
@@ -38,14 +64,14 @@ def do_admin_login():
 
     session['username'] = POST_USERNAME
 
-    Session = sessionmaker(bind=engine)
-    s = Session()
-    query = s.query(User).filter(User.username.in_([POST_USERNAME]), User.password.in_([POST_PASSWORD]))
-    result = query.first()
-    if result:
+    admin = User.query.filter_by(username=POST_USERNAME).first()
+    if not admin:
+        flash('invalid username!')
+    elif admin.password == POST_PASSWORD:
         session['logged_in'] = True
     else:
         flash('wrong password!')
+        session['logged_in'] = False
     return home()
 
 @app.route("/logout")
@@ -57,12 +83,13 @@ def logout():
 def profile():
     POST_USERNAME = str(request.form['username'])
     user_data = [POST_USERNAME]
+
     return flask.render_template('profile.html', userData = user_data)
-    
+
 
 @app.route('/logtrip/')
 def log_trip():
-    past_trips = trip_log.get_past_trips()    
+    past_trips = trip_log.get_past_trips()
 
     user = User.query.filter_by(username=session['username']).first()
     past_trips = user.id
@@ -70,39 +97,38 @@ def log_trip():
 
 @app.route('/tripdata/', methods=['POST'])
 def trip_data():
-    
+
     api_key = 'AIzaSyCgL4EhbainFOaUs3OJDUasN_9X3Kv7CN0'
-    
+
     startpoint = request.form['startpoint']
     endpoint = request.form['endpoint']
-    
+
     startpoint_url = startpoint.replace(" ", "+")
     endpoint_url = endpoint.replace(" ", "+")
-    
+
     urlstring1 = 'https://maps.googleapis.com/maps/api/geocode/json?address=' + startpoint_url + "&key=" +api_key
     start_info = simplejson.load(urlopen(urlstring1))
     start_coordinate = [start_info['results'][0].get("geometry").get("location").get("lat"), start_info['results'][0].get("geometry").get("location").get("lng")]
-    
+
     urlstring2 = 'https://maps.googleapis.com/maps/api/geocode/json?address=' + endpoint_url + "&key=" + api_key
     end_info = simplejson.load(urlopen(urlstring2))
     end_coordinate = [end_info['results'][0].get("geometry").get("location").get("lat"), end_info['results'][0].get("geometry").get("location").get("lng")]
-    
-    
+
+
     distance = vincenty(start_coordinate, end_coordinate).miles
-    
+
     co2 = 411 * distance
-    
+
     #avg mpg: 25.5
     #avg price per gallon: 2.42
     gallons_used = distance / 25.5
-    money_saved = 2.42 * gallons_used 
+    money_saved = 2.42 * gallons_used
 
     print(distance)
-    
-    points = [startpoint, endpoint, distance, co2, money_saved]
-    
-    return flask.render_template('trip-data.html', points = points)
 
+    points = [startpoint, endpoint, distance, co2, money_saved]
+
+    return flask.render_template('trip-data.html', points = points)
 
 if __name__ == "__main__":
     app.secret_key = os.urandom(12)
