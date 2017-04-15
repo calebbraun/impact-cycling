@@ -10,6 +10,9 @@ app = Flask(__name__, static_folder='static', template_folder='templates')
 app.secret_key = 'DYF~KPCVVjkdfFEQ93jJ]'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
 db.init_app(app)
+# create tables
+with app.app_context():
+    db.create_all()
 
 @app.route('/')
 def get_main_page():
@@ -121,6 +124,5 @@ def trip_data():
     return flask.render_template('trip-data.html', points = points)
 
 if __name__ == "__main__":
-    app.secret_key = os.urandom(12)
     app.run(host='0.0.0.0', debug=True, use_reloader=True)
     #app.run(host='localhost', port=5000, debug=True, use_reloader=True)

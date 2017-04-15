@@ -37,6 +37,3 @@ class Trips(db.Model):
         backref=backref('trips',
                         uselist=True,
                         cascade='delete,all'))'''
-
-# create tables
-Base.metadata.create_all(engine)
