@@ -1,3 +1,4 @@
+import flask
 import simplejson
 from urllib.request import urlopen
 from flask import Flask, flash, jsonify, render_template, request, session
