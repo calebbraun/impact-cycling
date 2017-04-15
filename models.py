@@ -1,21 +1,26 @@
 from sqlalchemy import Column, DateTime, String, Float, Integer, ForeignKey, func
 from sqlalchemy.orm import relationship, backref
-from sqlalchemy.ext.declarative import declarative_base
+from impact_cycling import db
 
-Base = declarative_base()
-
-
-class User(Base):
+class User(db.Model):
     __tablename__ = 'users'
 
     id = Column(Integer, primary_key=True)
     username = Column(String)
     password = Column(String)
     first_name = Column(String)
+
+    def __init__(self, name=None, password=None, first_name=None):
+        self.username = name
+        self.password = password
+        self.first_name = first_name
+
+    def __repr__(self):
+        return '<User %r>' % (self.username)
     # ---------------------------------------------------
 
 
-class Trips(Base):
+class Trips(db.Model):
     __tablename__ = 'trips'
     id = Column(Integer, primary_key=True)
     lat = Column(Float)
