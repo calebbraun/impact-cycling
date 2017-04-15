@@ -42,10 +42,15 @@ def trip_data():
     distance = vincenty(start_coordinate, end_coordinate).miles
     
     co2 = 411 * distance
+    
+    #avg mpg: 25.5
+    #avg price per gallon: 2.42
+    gallons_used = distance / 25.5
+    money_saved = 2.42 * gallons_used 
 
     print(distance)
     
-    points = [startpoint, endpoint, distance, co2]
+    points = [startpoint, endpoint, distance, co2, money_saved]
     
     return flask.render_template('trip-data.html', points = points)
 
