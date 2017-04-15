@@ -1,16 +1,11 @@
-import flask
 import simplejson
-from urllib2 import urlopen
-#from urllib.request import urlopen
-from flask import Flask, jsonify, render_template, request, session
-from urllib2 import urlopen
+import os
+import flask
 from flask import Flask, flash, jsonify, render_template, request, session
 from flask_googlemaps import GoogleMaps, Map
-import os
 from geopy.distance import vincenty
-from sqlalchemy.orm import sessionmaker
-from sqlalchemy import create_engine
-from flask_sqlalchemy import SQLAlchemy
+from urllib2 import urlopen
+#from urllib.request import urlopen
 from models import *
 import trip_log
 
