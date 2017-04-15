@@ -6970,4 +6970,9 @@ div#co2caption {
     font-size: medium;
 }
 
+div#logtripbutton {
+    margin-top: -200px;
+    margin-left: 400px;
+}
+
 
