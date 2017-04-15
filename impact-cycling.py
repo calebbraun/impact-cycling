@@ -19,7 +19,7 @@ def get_main_page():
     return flask.render_template('test-index.html')
 
 @app.route('/login')
-def login():
+def home():
     if not session.get('logged_in'):
         return render_template('login.html')
     else:
