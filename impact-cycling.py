@@ -8,7 +8,7 @@ from flask_googlemaps import Map
 import os
 from geopy.distance import vincenty
 from sqlalchemy.orm import sessionmaker
-from tabledef import *
+from tabledef_old import *
 
 engine = create_engine('sqlite:///tutorial.db', echo=True)
 
@@ -84,7 +84,6 @@ def trip_data():
     points = [startpoint, endpoint, distance, co2, money_saved]
     
     return flask.render_template('trip-data.html', points = points)
-
 
 
 if __name__ == "__main__":
