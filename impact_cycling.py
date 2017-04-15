@@ -96,12 +96,11 @@ def profile():
     
     qry = Trips.query.filter_by(user_id=userid).count()
     
-    if qry == 0:
-        print("NO TRIPS")
+
     distance = 0
     
     for i in range(1,qry+1):
-        qry2 = Trips.query.filter_by(Trips.id == i)).first().distance
+        qry2 = Trips.query.filter_by(id=i).first().distance
         print(qry2)
         distance += qry2
         
