@@ -6921,7 +6921,7 @@ div#welcome {
 div#subwelcome {
     margin-top: 10px;
     margin-left: 25px;
-    font-size: small;
+    font-size: medium;
 }
 
 div#totalmiles {
@@ -6935,7 +6935,7 @@ div#totalmiles {
 }
 
 div#totalmoneysaved {
-    margin-top: 75px;
+    margin-top: 65px;
     margin-left: 25px;
 /*
     background-image: url(/static/money.png);
@@ -6956,13 +6956,13 @@ div#totalco2saved {
 }
 
 div#milescaption {
-    margin-top: -50px;
+    margin-top: -70px;
     margin-left: 250px;
     font-size: large;
 }
 
 div#moneycaption {
-    margin-top: -100px;
+    margin-top: -130px;
     margin-left: 250px;
     font-size: large;
 }
