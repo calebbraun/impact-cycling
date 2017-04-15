@@ -12,6 +12,7 @@ app = Flask(__name__, static_folder='static', template_folder='templates')
 app.secret_key = 'DYF~KPCVVjkdfFEQ93jJ]'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
 db.init_app(app)
+
 # create tables
 with app.app_context():
     db.create_all()
@@ -37,7 +38,7 @@ def register():
     new_password = str(request.form['password'])
     new_firstname = str(request.form['firstname'])
 
-    if new_username != str(request.form['cpassword']):
+    if new_password != str(request.form['cpassword']):
         print("Error!")
         session['logged_in'] = False
     else:
