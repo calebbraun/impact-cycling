@@ -11,7 +11,7 @@ from geopy.distance import vincenty
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import create_engine
 from flask_sqlalchemy import SQLAlchemy
-from tabledef import *
+from models import *
 import trip_log
 
 app = Flask(__name__, static_folder='static', template_folder='templates')
@@ -19,30 +19,30 @@ app.secret_key = 'DYF~KPCVVjkdfFEQ93jJ]'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
 db = SQLAlchemy(app)
 
-class User(db.Model):
-    __tablename__ = 'users'
-
-    id = Column(Integer, primary_key=True)
-    username = Column(String)
-    password = Column(String)
-    first_name = Column(String)
-
-    def __init__(self, name=None, password=None, first_name=None):
-        self.username = name
-        self.password = password
-        self.first_name = first_name
-
-    def __repr__(self):
-        return '<User %r>' % (self.username)
-# engine = create_engine('sqlite:///tutorial.db', echo=True)
-
-class Trips(db.Model):
-    __tablename__ = 'trips'
-    id = Column(Integer, primary_key=True)
-    lat = Column(Float)
-    lon = Column(Float)
-    date = Column(DateTime)
-    user_id = Column(Integer, ForeignKey('users.id'))
+# class User(db.Model):
+#     __tablename__ = 'users'
+#
+#     id = Column(Integer, primary_key=True)
+#     username = Column(String)
+#     password = Column(String)
+#     first_name = Column(String)
+#
+#     def __init__(self, name=None, password=None, first_name=None):
+#         self.username = name
+#         self.password = password
+#         self.first_name = first_name
+#
+#     def __repr__(self):
+#         return '<User %r>' % (self.username)
+# # engine = create_engine('sqlite:///tutorial.db', echo=True)
+#
+# class Trips(db.Model):
+#     __tablename__ = 'trips'
+#     id = Column(Integer, primary_key=True)
+#     lat = Column(Float)
+#     lon = Column(Float)
+#     date = Column(DateTime)
+#     user_id = Column(Integer, ForeignKey('users.id'))
 
 @app.route('/')
 def get_main_page():

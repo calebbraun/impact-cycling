@@ -1,6 +1,5 @@
 from sqlalchemy import Column, DateTime, String, Float, Integer, ForeignKey, func
 from sqlalchemy.orm import relationship, backref
-from impact_cycling import db
 
 class User(db.Model):
     __tablename__ = 'users'
