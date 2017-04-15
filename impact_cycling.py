@@ -8,6 +8,7 @@ from geopy.distance import vincenty
 from sqlalchemy.orm import sessionmaker
 from tabledef import *
 import trip_log
+from tabledef_old import *
 
 app = Flask(__name__, static_folder='static', template_folder='templates')
 app.secret_key = 'DYF~KPCVVjkdfFEQ93jJ]'
@@ -91,7 +92,6 @@ def trip_data():
     points = [startpoint, endpoint, distance, co2, money_saved]
     
     return flask.render_template('trip-data.html', points = points)
-
 
 
 if __name__ == "__main__":
