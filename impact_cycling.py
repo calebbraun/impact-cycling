@@ -1,6 +1,8 @@
 import flask
+import datetime
 import simplejson
-from urllib.request import urlopen
+import urllib2
+#from urllib.request import urlopen
 from flask import Flask, flash, jsonify, render_template, request, session
 from flask_googlemaps import GoogleMaps, Map
 from geopy.distance import vincenty
@@ -88,7 +90,7 @@ def profile():
 
 @app.route('/logtrip/')
 def log_trip():
-    past_trips = trip_log.get_past_trips()
+    past_trips = trip_log.get_past_trips(session['username'])
     return flask.render_template('log-trip.html', trips=past_trips)
 
 @app.route('/tripdata/', methods=['POST'])
@@ -104,7 +106,9 @@ def trip_data():
 
     urlstring1 = 'https://maps.googleapis.com/maps/api/geocode/json?address=' + startpoint_url + "&key=" +api_key
     start_info = simplejson.load(urlopen(urlstring1))
-    start_coordinate = [start_info['results'][0].get("geometry").get("location").get("lat"), start_info['results'][0].get("geometry").get("location").get("lng")]
+    start_lat = start_info['results'][0].get("geometry").get("location").get("lat")
+    start_lon = start_info['results'][0].get("geometry").get("location").get("lng")
+    start_coordinate = [start_lat, start_lon]
 
     urlstring2 = 'https://maps.googleapis.com/maps/api/geocode/json?address=' + endpoint_url + "&key=" + api_key
     end_info = simplejson.load(urlopen(urlstring2))
@@ -120,6 +124,10 @@ def trip_data():
     gallons_used = distance / 25.5
     money_saved = 2.42 * gallons_used
 
+    user_id = User.query.filter_by(username=session['username']).first().id
+    new_trip = Trips(start_lat, start_lon, distance, datetime.datetime.now(), user_id)
+    db.session.add(new_trip)
+    db.session.commit()
     print(distance)
 
     points = [startpoint, endpoint, distance, co2, money_saved]

@@ -50,23 +50,19 @@
     <tr>
       <th>#</th>
       <th>Trip Date</th>
-      <th>Distance</th>
-      <th>Column heading</th>
+      <th>Latitude</th>
+      <th>Longitude</th>
     </tr>
   </thead>
   <tbody>
+    {% for row in trips %}
     <tr>
-      <td>1</td>
-      <td>{{ trips }}</td>
-      <td>{{ trips }}</td>
-      <td>Column content</td>
+      <td>{{ loop.index }}</td>
+      <td>{{ row.date }}</td>
+      <td>{{ row.lat}}</td>
+      <td>{{ row.lon }}</td>
     </tr>
-    <tr>
-      <td>2</td>
-      <td>Column content</td>
-      <td>Column content</td>
-      <td>Column content</td>
-    </tr>
+    {% endfor %}
   </tbody>
 </table> 
 </div>

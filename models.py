@@ -11,8 +11,8 @@ class User(db.Model):
     password = Column(String)
     first_name = Column(String)
 
-    def __init__(self, name=None, password=None, first_name=None):
-        self.username = name
+    def __init__(self, username=None, password=None, first_name=None):
+        self.username = username
         self.password = password
         self.first_name = first_name
 
@@ -26,18 +26,19 @@ class Trips(db.Model):
     id = Column(Integer, primary_key=True)
     lat = Column(Float)
     lon = Column(Float)
+    distance = Column(Float)
     date = Column(DateTime)
-    #user_id = Column(Integer, ForeignKey('users.id'))
+    user_id = Column(Integer, ForeignKey('users.id'))
     
-    # ----------------------------------------------------------------------
-    def __init__(self, lat, lon, date): #, user_id):
-        """"""
+    def __init__(self, lat=None, lon=None, distance=None, date=None, user_id=None):
         self.lat = lat
         self.lon = lon
+        self.distance = distance
         self.date = date
-#        self.user_id = user_id
+        self.user_id = user_id
 
-
+    def __repr__(self):
+        return '<User_id %d>' % (self.user_id)
     '''
     # Use cascade='delete,all' to propagate the deletion of a user onto its trips
     user = relationship(
