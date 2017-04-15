@@ -1,8 +1,8 @@
 import flask
 import datetime
 import simplejson
-#from urllib2 import urlopen
-from urllib.request import urlopen
+from urllib2 import urlopen
+#from urllib.request import urlopen
 from flask import Flask, flash, jsonify, render_template, request, session
 from flask_googlemaps import GoogleMaps, Map
 from geopy.distance import vincenty
@@ -31,14 +31,14 @@ def about():
 def meet_the_team():
     return flask.render_template('comingsoon.html')
 
-@app.route('/register')
+@app.route('/register/')
 def registration():
     if not session.get('logged_in'):
         return flask.render_template('register.html')
     else:
         return profile()
 
-@app.route('/register', methods=['POST'])
+@app.route('/register/', methods=['POST'])
 def register():
     new_username = str(request.form['username'])
     new_password = str(request.form['password'])
