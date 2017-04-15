@@ -1,18 +1,29 @@
 import flask
 import simplejson
 from urllib.request import urlopen
+from flask import Flask, flash, redirect, abort
 from flask import Flask, jsonify, render_template, request, session
 from flask_googlemaps import GoogleMaps
 from flask_googlemaps import Map
 import os
 from geopy.distance import vincenty
+from sqlalchemy.orm import sessionmaker
+from tabledef import *
+
+engine = create_engine('sqlite:///tutorial.db', echo=True)
 
 app = flask.Flask(__name__, static_folder='static', template_folder='templates')
-
 
 @app.route('/')
 def get_main_page():
     return flask.render_template('test-index.html')
+
+@app.route('/login')
+def login():
+    if not session.get('logged_in'):
+        return render_template('login.html')
+    else:
+        return "Hello Boss!  <a href='/logout'>Logout</a>"
 
 @app.route('/login', methods=['POST'])
 def do_admin_login():
@@ -77,4 +88,5 @@ def trip_data():
 
 
 if __name__ == "__main__":
+    app.secret_key = os.urandom(12)
     app.run(host='localhost', port=5000, debug=True, use_reloader=True)
