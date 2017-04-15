@@ -10,3 +10,4 @@
 
 - [ ] Gathering biking data from other app and/or gathering it ourselves
 - [ ] Gamification part (map, points)
+- [ ] Donate gas money savings to worthy non-profits
