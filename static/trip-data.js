@@ -8,7 +8,8 @@ function init()
     document.getElementById('pointsinfo').innerHTML = points[0] + "<br />";
     document.getElementById('pointsinfo').innerHTML += points[1] + "<br />";
     document.getElementById('pointsinfo').innerHTML += points[2] + "<br />";
-    document.getElementById('pointsinfo').innerHTML += points[3] + " grams of co2 saved!";
+    document.getElementById('pointsinfo').innerHTML += points[3] + " grams of co2 saved!" + "<br />";
+    document.getElementById('pointsinfo').innerHTML += points[4] + " dollars saved!";
     
     
 }
