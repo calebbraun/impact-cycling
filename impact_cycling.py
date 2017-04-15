@@ -1,8 +1,8 @@
 import flask
 import datetime
 import simplejson
-#from urllib2 import urlopen
-from urllib.request import urlopen
+from urllib2 import urlopen
+#from urllib.request import urlopen
 from flask import Flask, flash, jsonify, render_template, request, session
 from flask_googlemaps import GoogleMaps, Map
 from geopy.distance import vincenty
