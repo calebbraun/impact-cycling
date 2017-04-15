@@ -1,13 +1,13 @@
 import flask
 import simplejson
-from urllib.request import urlopen
+from urllib2 import urlopen
 from flask import Flask, jsonify, render_template, request, session
 from flask_googlemaps import GoogleMaps
 from flask_googlemaps import Map
 import os
 from geopy.distance import vincenty
 
-app = flask.Flask(__name__, static_folder='static', template_folder='templates')
+app = Flask(__name__, static_folder='static', template_folder='templates')
 
 
 @app.route('/')
@@ -52,4 +52,4 @@ def trip_data():
 
 
 if __name__ == "__main__":
-    app.run(host='localhost', port=5000, debug=True, use_reloader=True)
+    app.run(host='0.0.0.0')

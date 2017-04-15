@@ -2,30 +2,43 @@
 <html>
     
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCgL4EhbainFOaUs3OJDUasN_9X3Kv7CN0&libraries=places&callback=initAutocomplete" async defer></script>
+<link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.css') }}">
     
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Basic HTML File</title>
+</head>
 <body> 
 <script type="text/javascript" src="{{ url_for('static', filename='log-trip.js') }}"></script>
 
+{% include 'navbar.html' %}
  
 {% block content %}
-<form id = "userInputs" method="post" action="{{ url_for('trip_data') }}">
+<h3>Enter your trip information</h3>
+<form id="userInputs" class="form-horizontal" method="post" action="{{ url_for('trip_data') }}">
     
-<div id="box">
-    <div id = "startend">
-    <div id="start" class="loc_box">
-        <span class = "hoverinfo" id = "starthover"> Where did you begin your ride?</span>
-        <p><input id="start_input" class="locations" type="text" placeholder="Start Location" name = 'startpoint' required></p>
-    </div>
-        <div id="end" class="loc_box">
-        <span class = "hoverinfo" id = "endhover"> Where was the destination of your ride?</span>            
-        <p><input id="end_input" class="locations" type="text" placeholder="End Location" name='endpoint' required></p>
-    </div>
-    </div>
+<fieldset>
+<div id="box" class="col-lg-6">
+    <div id="startend" class="form-group">
+	<label for="start" class="col-lg-2 control-label">Where did you begin your ride?</label>
+    	<div id="start" class="col-lg-10">
+        	<input id="start_input" class="form-control" type="text" placeholder="Start Location" name = 'startpoint' required>
         </div>
-     <div id = "button">
-        <button id="go" onclick="">Get My Route</button>
     </div>
-        </form>
+    <div class="form-group">
+	<label for="end" class="col-lg-2 control-label">Where was the destination of your ride?</label>
+    	<div id="end" class="col-lg-10">
+            <input id="end_input" class="form-control" type="text" placeholder="End Location" name='endpoint' required>
+        </div>
+    </div>
+</div>
+<div id = "button">
+    <button id="go" class="btn btn-primary">Get My Route</button>
+</div>
+</fieldset>
+</form>
 {% endblock %}
     
 </body>
