@@ -31,14 +31,14 @@ def about():
 def meet_the_team():
     return flask.render_template('comingsoon.html')
 
-@app.route('/register')
+@app.route('/register/')
 def registration():
     if not session.get('logged_in'):
         return flask.render_template('register.html')
     else:
         return profile()
 
-@app.route('/register', methods=['POST'])
+@app.route('/register/', methods=['POST'])
 def register():
     new_username = str(request.form['username'])
     new_password = str(request.form['password'])
@@ -101,7 +101,7 @@ def profile():
     distance = 0
     
     for i in range(1,qry+1):
-        qry2 = Trips.query.filter_by(Trips.id == i)).first().distance
+        qry2 = Trips.query.filter_by(id = i).first().distance
         print(qry2)
         distance += qry2
         

@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-	{% include 'includes.html' %}
-	<title>Register</title>
+    {% include 'includes.html' %}
+    <title>Register</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.css') }}">
     <link rel="stylesheet" href="/static/style.css" type="text/css">
 </head>
 
 <body>
+{% include 'navbar.html' %}
+
 {% block body %}
 {% if session['logged_in'] %}
 <p>You're logged in already!</p>
