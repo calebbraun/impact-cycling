@@ -1,12 +1,13 @@
 import flask
 import simplejson
 from urllib2 import urlopen
-from flask import Flask, jsonify, render_template, request, session
+from flask import Flask, flash, jsonify, render_template, request, session
 from flask_googlemaps import GoogleMaps, Map
 import os
 from geopy.distance import vincenty
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import create_engine
+from flask_sqlalchemy import SQLAlchemy
 from tabledef import *
 import trip_log
 
@@ -63,14 +64,14 @@ def do_admin_login():
 
     session['username'] = POST_USERNAME
 
-    Session = sessionmaker(bind=engine)
-    s = Session()
-    query = s.query(User).filter(User.username.in_([POST_USERNAME]), User.password.in_([POST_PASSWORD]))
-    result = query.first()
-    if result:
+    admin = User.query.filter_by(username=POST_USERNAME).first()
+    if not admin:
+        flash('invalid username!')
+    elif admin.password == POST_PASSWORD:
         session['logged_in'] = True
     else:
         flash('wrong password!')
+        session['logged_in'] = False
     return home()
 
 @app.route("/logout")
@@ -128,10 +129,6 @@ def trip_data():
     points = [startpoint, endpoint, distance, co2, money_saved]
 
     return flask.render_template('trip-data.html', points = points)
-
-@app.teardown_appcontext
-def shutdown_session(exception=None):
-    db_session.remove()
 
 if __name__ == "__main__":
     app.secret_key = os.urandom(12)

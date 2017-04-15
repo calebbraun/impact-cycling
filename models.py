@@ -1,9 +1,8 @@
 from sqlalchemy import Column, DateTime, String, Float, Integer, ForeignKey, func
 from sqlalchemy.orm import relationship, backref
-from impact_cycling.database import Base
+from impact_cycling import db
 
-
-class User(Base):
+class User(db.Model):
     __tablename__ = 'users'
 
     id = Column(Integer, primary_key=True)
@@ -21,7 +20,7 @@ class User(Base):
     # ---------------------------------------------------
 
 
-class Trips(Base):
+class Trips(db.Model):
     __tablename__ = 'trips'
     id = Column(Integer, primary_key=True)
     lat = Column(Float)
