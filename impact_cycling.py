@@ -7,7 +7,7 @@ from flask_googlemaps import GoogleMaps, Map
 from geopy.distance import vincenty
 from models import *
 import trip_log
-from sqlalchemy.sql import func
+from sqlalchemy.sql import and_
 
 app = Flask(__name__, static_folder='static', template_folder='templates')
 app.secret_key = 'DYF~KPCVVjkdfFEQ93jJ]'
@@ -93,7 +93,8 @@ def profile():
     distance = 0
     
     for i in range(1,qry+1):
-        qry2 = Trips.query.filter_by(user_id=userid,id=i).first().distance
+        qry2 = Trips.query.filter(and_(Trips.user_id == userid, Trips.id == i)).first().distance
+        print(qry2)
         distance += qry2
         
     gallons_used = distance / 25.5
