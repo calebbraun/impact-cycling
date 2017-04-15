@@ -4,15 +4,7 @@ from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
 
-<<<<<<< HEAD:tabledef.py
-engine = create_engine('sqlite:///tutorial.db', echo=True)
-Base = declarative_base()
-
-
-class User(Base):
-=======
 class User(db.Model):
->>>>>>> 3dbfd435bde39b4c46b9d903dc4942aed1902d48:models.py
     __tablename__ = 'users'
 
     id = Column(Integer, primary_key=True)
