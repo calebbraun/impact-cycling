@@ -1,12 +1,10 @@
 <!DOCTYPE html>
 <html>
-  <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.css') }}">
 <head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-        <input type="hidden" id="myVar" name="variable" value = '{{ points|tojson }}'>
-	<title>Results</title>
+    {% include 'includes.html' %}
+    <title>Results</title>
+    <input type="hidden" id="myVar" name="variable" value = '{{ points|tojson }}'>
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.css') }}">
 </head>
     {% include 'navbar.html' %}
     <script type="text/javascript" src="{{ url_for('static', filename='trip-data.js') }}"></script>
@@ -15,6 +13,6 @@
     </script>
     <body onload = "initMap">
             <div id="pointsinfo"></div>
-        
+
   </body>
 </html>
