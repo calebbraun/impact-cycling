@@ -7,9 +7,10 @@ box-sizing: border-box;
 }
 body {
 font-family: Arial;
-background-color: #3498DB;
+background-color: #344D5F;
 padding: 50px;
 }
+
 .login {
 margin: 20px auto;
 width: 300px;
@@ -45,13 +46,13 @@ transition: border .5s;
 }
 
 input:focus {
-border: 2px solid #3498DB;
+border: 2px solid #dd3a27;
 box-shadow: none;
 }
 
 .btn {
   border: 2px solid transparent;
-  background: #3498DB;
+  background: #D6220E;
   color: #ffffff;
   font-size: 16px;
   line-height: 25px;
@@ -66,8 +67,10 @@ box-shadow: none;
   margin: 0 auto;
 }
 
+
+
 .btn:hover {
-  background-color: #2980B9;
+  background-color: #ea5444;
 }
 
 .login-link {

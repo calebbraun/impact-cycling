@@ -35,5 +35,11 @@ class Trips(db.Model):
         self.date = date
 #        self.user_id = user_id
 
-# create tables
-Base.metadata.create_all(engine)
+
+    '''
+    # Use cascade='delete,all' to propagate the deletion of a user onto its trips
+    user = relationship(
+        user_id,
+        backref=backref('trips',
+                        uselist=True,
+                        cascade='delete,all'))'''
