@@ -4,6 +4,7 @@ from urllib2 import urlopen
 from flask import Flask, jsonify, render_template, request, session
 from flask_googlemaps import GoogleMaps, Map
 import os
+from impact_cycling.database import db_session
 from geopy.distance import vincenty
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import create_engine
@@ -56,6 +57,7 @@ def logout():
 def profile():
     POST_USERNAME = str(request.form['username'])
     user_data = [POST_USERNAME]
+
     return flask.render_template('profile.html', userData = user_data)
 
 
@@ -102,6 +104,9 @@ def trip_data():
 
     return flask.render_template('trip-data.html', points = points)
 
+@app.teardown_appcontext
+def shutdown_session(exception=None):
+    db_session.remove()
 
 if __name__ == "__main__":
     app.secret_key = os.urandom(12)
