@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+    
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCgL4EhbainFOaUs3OJDUasN_9X3Kv7CN0&libraries=places&callback=initAutocomplete" async defer></script>
+    
+<body> 
+<script type="text/javascript" src="{{ url_for('static', filename='log-trip.js') }}"></script>
+
+ 
+{% block content %}
+<form id = "userInputs" method="post" action="{{ url_for('trip_data') }}">
+    
+<div id="box">
+    <div id = "startend">
+    <div id="start" class="loc_box">
+        <span class = "hoverinfo" id = "starthover"> Where did you begin your ride?</span>
+        <p><input id="start_input" class="locations" type="text" placeholder="Start Location" name = 'startpoint' required></p>
+    </div>
+        <div id="end" class="loc_box">
+        <span class = "hoverinfo" id = "endhover"> Where was the destination of your ride?</span>            
+        <p><input id="end_input" class="locations" type="text" placeholder="End Location" name='endpoint' required></p>
+    </div>
+    </div>
+        </div>
+     <div id = "button">
+        <button id="go" onclick="">Get My Route</button>
+    </div>
+        </form>
+{% endblock %}
+    
+</body>
+</html>

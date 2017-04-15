@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <input type="hidden" id="myVar" name="variable" value = '{{ points|tojson }}'>
+  </head>
+    <script type="text/javascript" src="{{ url_for('static', filename='trip-data.js') }}"></script>
+      <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCgL4EhbainFOaUs3OJDUasN_9X3Kv7CN0&callback=init">
+    </script>
+    <body onload = "initMap">
+            <div id="pointsinfo"></div>
+        
+  </body>
+</html>
