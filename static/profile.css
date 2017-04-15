@@ -6946,7 +6946,7 @@ div#totalmoneysaved {
 }
 
 div#totalco2saved {
-    margin-top: 125px;
+    margin-top: 115px;
     margin-left: 25px;
 /*
     background-image: url(/static/co2.png);
@@ -6958,19 +6958,19 @@ div#totalco2saved {
 div#milescaption {
     margin-top: -50px;
     margin-left: 250px;
-    font-size: medium;
+    font-size: large;
 }
 
 div#moneycaption {
     margin-top: -100px;
     margin-left: 250px;
-    font-size: medium;
+    font-size: large;
 }
 
 div#co2caption {
-    margin-top: -60px;
+    margin-top: -70px;
     margin-left: 250px;
-    font-size: medium;
+    font-size: large;
 }
 
 
