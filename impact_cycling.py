@@ -1,6 +1,7 @@
 import flask
 import simplejson
-from urllib2 import urlopen
+#from urllib2 import urlopen
+from urllib.request import urlopen
 from flask import Flask, jsonify, render_template, request, session
 from flask_googlemaps import GoogleMaps, Map
 import os
