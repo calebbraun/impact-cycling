@@ -6,7 +6,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from tabledef import *
 
-engine = create_engine('sqlite:///data')
+engine = create_engine('sqlite:///tutorial.db')
 
 # create a Session
 Session = sessionmaker(bind=engine)
