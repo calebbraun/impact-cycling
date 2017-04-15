@@ -1,22 +1,26 @@
 import flask
 import simplejson
-from urllib.request import urlopen
-from flask import Flask, flash, redirect, abort
+from urllib2 import urlopen
 from flask import Flask, jsonify, render_template, request, session
-from flask_googlemaps import GoogleMaps
-from flask_googlemaps import Map
+from flask_googlemaps import GoogleMaps, Map
 import os
 from geopy.distance import vincenty
 from sqlalchemy.orm import sessionmaker
 from tabledef import *
+import trip_log
+from tabledef_old import *
 
+app = Flask(__name__, static_folder='static', template_folder='templates')
+app.secret_key = 'DYF~KPCVVjkdfFEQ93jJ]'
 engine = create_engine('sqlite:///tutorial.db', echo=True)
-
-app = flask.Flask(__name__, static_folder='static', template_folder='templates')
 
 @app.route('/')
 def get_main_page():
     return flask.render_template('test-index.html')
+
+@app.route('/about')
+def about():
+    return render_template('about.html')
 
 @app.route('/login')
 def home():
@@ -25,12 +29,13 @@ def home():
     else:
         return profile()
         #return "Hello Boss!  <a href='/logout'>Logout</a>"
-        
 
 @app.route('/login', methods=['POST'])
 def do_admin_login():
     POST_USERNAME = str(request.form['username'])
     POST_PASSWORD = str(request.form['password'])
+
+    session['username'] = POST_USERNAME
 
     Session = sessionmaker(bind=engine)
     s = Session()
@@ -58,8 +63,10 @@ def profile():
 
 @app.route('/logtrip/')
 def log_trip():
-    
-    return flask.render_template('log-trip.html')
+    past_trips = trip_log.get_past_trips()    
+    user = User.query.filter_by(username=session['username']).first()
+    past_trips = user.id
+    return flask.render_template('log-trip.html', trips=past_trips)
 
 @app.route('/tripdata/', methods=['POST'])
 def trip_data():
@@ -97,7 +104,7 @@ def trip_data():
     return flask.render_template('trip-data.html', points = points)
 
 
-
 if __name__ == "__main__":
     app.secret_key = os.urandom(12)
-    app.run(host='localhost', port=5000, debug=True, use_reloader=True)
+    app.run(host='0.0.0.0', debug=True, use_reloader=True)
+    #app.run(host='localhost', port=5000, debug=True, use_reloader=True)
