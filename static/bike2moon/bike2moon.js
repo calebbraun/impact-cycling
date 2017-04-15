@@ -46,6 +46,8 @@ function draw() {
 
     c.strokeStyle = "#0F0";
     c.lineWidth = 8;
+    c.setLineDash([20, 15]);
+
     c.beginPath();
     c.moveTo(0.15*w, 0.8*h);
     c.quadraticCurveTo(w, h, 0.75*w, 0.25*h);
