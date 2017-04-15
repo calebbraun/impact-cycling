@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Profile</title>
+<!--    <link rel="stylesheet" type = "text/css" href="/static/profile.css"/>    -->
+      <input type="hidden" id="myVar" name="variable" value = '{{ userData|tojson }}'>
+      <link rel="stylesheet" href="{{ url_for('static', filename='profile.css') }}">
+  </head>
+    <script type="text/javascript" src="{{ url_for('static', filename='profile.js') }}"></script>
+
+    <body onload = "init()">
+        
+        {% include 'navbar.html' %}
+        
+        <div id="welcome"></div>
+        <div id ="subwelcome"></div>
+        <div id="totalmiles">
+            <img class="bikePic" src="/static/totalmilesbike.jpg" />
+            <div id="milescaption"></div>
+        </div>
+        <div id="totalmoneysaved">
+            <img class="moneyPic" src="/static/money.png" />
+            <div id="moneycaption"></div>
+        </div>
+        <div id="totalco2saved">
+            <img class="moneyPic" src="/static/co2.jpg" />
+            <div id="co2caption"></div>
+
+        </div>
+
+  </body>
+</html>

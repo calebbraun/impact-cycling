@@ -27,7 +27,8 @@ def home():
     if not session.get('logged_in'):
         return render_template('login.html')
     else:
-        return "Hello Boss!  <a href='/logout'>Logout</a><br><a href='/logtrip'>Enter a trip</a>"
+        return profile()
+        #return "Hello Boss!  <a href='/logout'>Logout</a>"
 
 @app.route('/login', methods=['POST'])
 def do_admin_login():
@@ -50,6 +51,15 @@ def do_admin_login():
 def logout():
     session['logged_in'] = False
     return home()
+
+@app.route("/profile/")
+def profile():
+    POST_USERNAME = str(request.form['username'])
+    
+    user_data = [POST_USERNAME]
+    
+    return flask.render_template('profile.html', userData = user_data)
+    
 
 @app.route('/logtrip/')
 def log_trip():
