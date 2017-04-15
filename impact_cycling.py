@@ -6,13 +6,44 @@ from flask_googlemaps import GoogleMaps
 from flask_googlemaps import Map
 import os
 from geopy.distance import vincenty
+from sqlalchemy.orm import sessionmaker
+from tabledef import *
 
 app = Flask(__name__, static_folder='static', template_folder='templates')
+engine = create_engine('sqlite:///tutorial.db', echo=True)
 
+app = flask.Flask(__name__, static_folder='static', template_folder='templates')
 
 @app.route('/')
 def get_main_page():
     return flask.render_template('test-index.html')
+
+@app.route('/login')
+def home():
+    if not session.get('logged_in'):
+        return render_template('login.html')
+    else:
+        return "Hello Boss!  <a href='/logout'>Logout</a>"
+
+@app.route('/login', methods=['POST'])
+def do_admin_login():
+    POST_USERNAME = str(request.form['username'])
+    POST_PASSWORD = str(request.form['password'])
+
+    Session = sessionmaker(bind=engine)
+    s = Session()
+    query = s.query(User).filter(User.username.in_([POST_USERNAME]), User.password.in_([POST_PASSWORD]))
+    result = query.first()
+    if result:
+        session['logged_in'] = True
+    else:
+        flash('wrong password!')
+    return home()
+
+@app.route("/logout")
+def logout():
+    session['logged_in'] = False
+    return home()
 
 @app.route('/logtrip/')
 def log_trip():
@@ -42,14 +73,21 @@ def trip_data():
     distance = vincenty(start_coordinate, end_coordinate).miles
     
     co2 = 411 * distance
+    
+    #avg mpg: 25.5
+    #avg price per gallon: 2.42
+    gallons_used = distance / 25.5
+    money_saved = 2.42 * gallons_used 
 
     print(distance)
     
-    points = [startpoint, endpoint, distance, co2]
+    points = [startpoint, endpoint, distance, co2, money_saved]
     
     return flask.render_template('trip-data.html', points = points)
 
 
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0')
+    #app.run(host='0.0.0.0')
+    app.secret_key = os.urandom(12)
+    app.run(host='localhost', port=5000, debug=True, use_reloader=True)
