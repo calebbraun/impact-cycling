@@ -22,14 +22,18 @@ with app.app_context():
 def get_main_page():
     return flask.render_template('index.html')
 
-@app.route('/about')
+@app.route('/about/')
 def about():
-    return render_template('about.html')
+    return flask.render_template('about.html')
+
+@app.route('/meettheteam/')
+def meet_the_team():
+    return flask.render_template('comingsoon.html')
 
 @app.route('/register')
 def registration():
     if not session.get('logged_in'):
-        return render_template('register.html')
+        return flask.render_template('register.html')
     else:
         return profile()
 
@@ -53,7 +57,7 @@ def register():
 @app.route('/login')
 def home():
     if not session.get('logged_in'):
-        return render_template('login.html')
+        return flask.render_template('login.html')
     else:
 #        return flask.render_template('profile.html', userData = user_data)
         return profile()
@@ -90,6 +94,9 @@ def profile():
     
     
     qry = Trips.query.filter_by(user_id=userid).count()
+    
+    if qry == 0:
+        print("NO TRIPS")
     distance = 0
     
     for i in range(1,qry+1):
