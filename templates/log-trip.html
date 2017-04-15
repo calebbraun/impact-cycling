@@ -8,7 +8,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Basic HTML File</title>
+	<title>Enter your Trip</title>
 </head>
 <body> 
 <script type="text/javascript" src="{{ url_for('static', filename='log-trip.js') }}"></script>
@@ -16,15 +16,17 @@
 {% include 'navbar.html' %}
  
 {% block content %}
+<div class="row">
+<div class="col-lg-5">
 <h3>Enter your trip information</h3>
 <form id="userInputs" class="form-horizontal" method="post" action="{{ url_for('trip_data') }}">
     
 <fieldset>
-<div id="box" class="col-lg-6">
+<div id="box">
     <div id="startend" class="form-group">
 	<label for="start" class="col-lg-2 control-label">Where did you begin your ride?</label>
     	<div id="start" class="col-lg-10">
-        	<input id="start_input" class="form-control" type="text" placeholder="Start Location" name = 'startpoint' required>
+      	    <input id="start_input" class="form-control" type="text" placeholder="Start Location" name = 'startpoint' required>
         </div>
     </div>
     <div class="form-group">
@@ -33,12 +35,42 @@
             <input id="end_input" class="form-control" type="text" placeholder="End Location" name='endpoint' required>
         </div>
     </div>
-</div>
-<div id = "button">
-    <button id="go" class="btn btn-primary">Get My Route</button>
+    <div class="form-group" id="button">
+        <button id="go" class="btn btn-primary">Get My Route</button>
+    </div>
 </div>
 </fieldset>
 </form>
+</div>
+
+<div class="col-lg-6 col-lg-offset-1">
+<h3>Past Trips</h3>
+<table class="table table-striped table-hover ">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Trip Date</th>
+      <th>Distance</th>
+      <th>Column heading</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>{{ trips }}</td>
+      <td>{{ trips }}</td>
+      <td>Column content</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>Column content</td>
+      <td>Column content</td>
+      <td>Column content</td>
+    </tr>
+  </tbody>
+</table> 
+</div>
+</div>
 {% endblock %}
     
 </body>
