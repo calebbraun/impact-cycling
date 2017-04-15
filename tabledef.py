@@ -1,18 +1,12 @@
 from sqlalchemy import create_engine, Column, DateTime, String, Float, Integer, ForeignKey, func
 from sqlalchemy.orm import relationship, backref
-from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy.ext.declarative import declarative_base
 
-db = SQLAlchemy()
-
-<<<<<<< HEAD:tabledef.py
 engine = create_engine('sqlite:///tutorial.db', echo=True)
 Base = declarative_base()
 
 
 class User(Base):
-=======
-class User(db.Model):
->>>>>>> 3dbfd435bde39b4c46b9d903dc4942aed1902d48:models.py
     __tablename__ = 'users'
 
     id = Column(Integer, primary_key=True)
@@ -20,17 +14,14 @@ class User(db.Model):
     password = Column(String)
     first_name = Column(String)
 
-    def __init__(self, name=None, password=None, first_name=None):
-        self.username = name
+    def __init__(self, username, password, first_name):
+        self.username = username
         self.password = password
         self.first_name = first_name
-
-    def __repr__(self):
-        return '<User %r>' % (self.username)
     # ---------------------------------------------------
 
 
-class Trips(db.Model):
+class Trips(Base):
     __tablename__ = 'trips'
     id = Column(Integer, primary_key=True)
     lat = Column(Float)
