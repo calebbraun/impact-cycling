@@ -1,8 +1,6 @@
 from sqlalchemy import Column, DateTime, String, Float, Integer, ForeignKey, func
 from sqlalchemy.orm import relationship, backref
-from sqlalchemy.ext.declarative import declarative_base
-
-Base = declarative_base()
+from impact_cycling.database import Base
 
 
 class User(Base):
@@ -12,6 +10,14 @@ class User(Base):
     username = Column(String)
     password = Column(String)
     first_name = Column(String)
+
+    def __init__(self, name=None, password=None, first_name=None):
+        self.username = name
+        self.password = password
+        self.first_name = first_name
+
+    def __repr__(self):
+        return '<User %r>' % (self.username)
     # ---------------------------------------------------
 
 
