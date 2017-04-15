@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+        <title>Impact Cycles</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.css') }}">
+        <link rel="stylesheet" href="/static/bike2moon/index.css" />
+        <script src="/static/bike2moon/bike2moon.js"></script>
+    </head>
+    <body>
+        <!-- hidden image assets-->
+        <img src="/static/bike2moon/space.png" class="asset" id="space" />
+        <img src="/static/bike2moon/moon.png" class="asset" id="moon" />
+        <img src="/static/bike2moon/earth.png" class="asset" id="earth" />
+        <img src="/static/bike2moon/bike.png" class="asset" id="bike" />
+        <!-- displayed content -->
+        <div class="buttons">
+            <a id="go" class="btn btn-primary" href="/login">Log In</a>
+            <a id="go" class="btn btn-primary" href="/register">Sign Up</a>
+        </div>
+        <canvas id="spaaaace"></canvas>
+        <div class="content">
+            <p>Our riders have biked to the moon 0.62 times!</p>
+            <p>Sign up to join the ride</p>
+        </div>
+    </body>
+</html>
