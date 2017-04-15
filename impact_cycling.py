@@ -55,19 +55,13 @@ def logout():
 @app.route("/profile/")
 def profile():
     POST_USERNAME = str(request.form['username'])
-    
     user_data = [POST_USERNAME]
-    
     return flask.render_template('profile.html', userData = user_data)
     
 
 @app.route('/logtrip/')
 def log_trip():
     past_trips = trip_log.get_past_trips()    
-
-    Session = sessionmaker(bind=engine)
-    s = Session()
-    query = s.query(User)
 
     user = User.query.filter_by(username=session['username']).first()
     past_trips = user.id
