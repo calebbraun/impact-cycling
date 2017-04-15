@@ -22,6 +22,29 @@ def get_main_page():
 def about():
     return render_template('about.html')
 
+@app.route('/register')
+def registration():
+    if not session.get('logged_in'):
+        return render_template('register.html')
+    else:
+        return profile()
+
+@app.route('/register', methods=['POST'])
+def register():
+    POST_USERNAME = str(request.form['username'])
+    POST_PASSWORD = str(request.form['password'])
+    if POST_PASSWORD != str(request.form['cpassword']):
+        return
+    POST_FIRSTNAME = str(request.form['firstname'])
+
+    print (POST_USERNAME, POST_PASSWORD, POST_FIRSTNAME)
+
+    Session = sessionmaker(bind=engine)
+    s = Session()
+    record = User(POST_USERNAME, POST_PASSWORD, POST_FIRSTNAME)
+    s.add(record)
+    s.commit()
+
 @app.route('/login')
 def home():
     if not session.get('logged_in'):
