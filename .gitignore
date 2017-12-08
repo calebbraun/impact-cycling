@@ -4,3 +4,4 @@
 *.pyc
 .idea/*
 .ftpconfig
+.DS_Store
