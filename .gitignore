@@ -5,3 +5,4 @@
 .idea/*
 .ftpconfig
 .DS_Store
+*.pem
